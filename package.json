@@ -16,8 +16,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
-    "@beast-village/bv-register": "^1.0.43",
+    "@beast-village/bv-register": "^1.0.58",
     "bootstrap": "^5.2.2",
+    "dotenv": "^16.0.3",
     "gatsby": "^4.24.1",
     "gatsby-plugin-apollo": "^4.0.2",
     "graphql": "^15.8.0",

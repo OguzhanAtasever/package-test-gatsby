@@ -6,16 +6,21 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import BvRegister, { RegisterContent } from "@beast-village/bv-register";
+import {
+  RegisterModal,
+  Payment,
+  authMiddleware,
+} from "@beast-village/bv-register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "reactstrap";
-
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({
-    uri: "http://localhost:4004/graphql",
-    fetch,
-  }),
+  link: authMiddleware.concat(
+    new HttpLink({
+      uri: "http://localhost:4004/graphql",
+      fetch,
+    })
+  ),
 });
 const pageStyles = {
   color: "#232129",
@@ -142,6 +147,7 @@ const links = [
 
 const IndexPage = () => {
   const [open, setOpen] = React.useState(false);
+  console.log(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
   return (
     <ApolloProvider client={client}>
@@ -153,15 +159,26 @@ const IndexPage = () => {
         >
           Open
         </Button>
-        <BvRegister
+        <RegisterModal
           open={open}
           setOpen={setOpen}
           onSuccess={(token) => {
             console.log("TOKEN => ", token);
           }}
-          showBtn={false}
         />
-        <RegisterContent />
+        <div
+          style={{
+            maxWidth: 600,
+          }}
+        >
+          <Payment
+            price={50}
+            submitPayment={(payment) => {
+              console.log(payment);
+            }}
+            customerEmail="oguz@real.dog"
+          />
+        </div>
         <h1 style={headingStyles}>
           Congratulations
           <br />

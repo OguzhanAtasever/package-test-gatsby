@@ -1,3 +1,4 @@
+require("dotenv");
 module.exports = {
   siteMetadata: {
     title: `My Gatsby Site`,
