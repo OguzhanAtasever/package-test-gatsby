@@ -6,6 +6,9 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
+import BvRegister, { RegisterContent } from "@beast-village/bv-register";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "reactstrap";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -138,9 +141,27 @@ const links = [
 ];
 
 const IndexPage = () => {
+  const [open, setOpen] = React.useState(false);
+
   return (
     <ApolloProvider client={client}>
       <main style={pageStyles}>
+        <Button
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Open
+        </Button>
+        <BvRegister
+          open={open}
+          setOpen={setOpen}
+          onSuccess={(token) => {
+            console.log("TOKEN => ", token);
+          }}
+          showBtn={false}
+        />
+        <RegisterContent />
         <h1 style={headingStyles}>
           Congratulations
           <br />
