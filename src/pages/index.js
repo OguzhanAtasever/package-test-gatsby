@@ -9,10 +9,9 @@ import {
 import {
   RegisterContent,
   RegisterModal,
-  Payment,
   authMiddleware,
-  AddressContainer,
 } from "@beast-village/bv-register";
+import { Payment, AddressContainer } from "@beast-village/checkout-package";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "reactstrap";
 const client = new ApolloClient({
@@ -52,18 +51,19 @@ const IndexPage = () => {
           }}
         >
           <RegisterContent />
-          <AddressContainer
-            customer={{
-              id: "63467f92450be000167fa41a",
-              email: "oguz@real.dog",
-            }}
-          />
+
           <Payment
             price={50}
             submitPayment={(payment) => {
               console.log(payment);
             }}
             customerEmail="oguz@real.dog"
+          />
+          <AddressContainer
+            customer={{
+              id: "63467f92450be000167fa41a",
+              email: "oguz@real.dog",
+            }}
           />
         </div>
       </main>
